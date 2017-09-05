@@ -187,6 +187,20 @@ type BlacklistDetails struct {
 	Reasons      []string `json:"reasons"`
 }
 
+type SuspiciousLinkDetails struct {
+	URL   string `json:"url"`
+	Links []struct {
+		Link       string             `json:"link"`
+		Blacklists []BlacklistDetails `json:"blacklists"`
+	} `json:"links"`
+}
+
+type SuspiciousRequestDetails struct {
+	Entity     string             `json:"entity"`
+	URLs       []string           `json:"urls"`
+	Blacklists []BlacklistDetails `json:"blacklists"`
+}
+
 type ChangedFileDetails struct {
 	URL    string  `json:"url"`
 	DiffID int     `json:"diff"`
