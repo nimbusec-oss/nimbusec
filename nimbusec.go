@@ -93,6 +93,7 @@ func (client *Client) Do(ctx context.Context, method, url string, in, out interf
 	}
 
 	// perform request
+	req = req.WithContext(ctx)
 	resp, err := client.http.Do(req)
 	if err != nil {
 		return err
