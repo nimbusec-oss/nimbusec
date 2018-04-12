@@ -150,10 +150,19 @@ type ZoneHDetails struct {
 	Threat string `json:"threat"`
 }
 
+// Initiator holds all information about the initiator of an request/malware issue
+type Initiator struct {
+	InitType string `json:"type"`
+	URL      string `json:"url"`
+	Line     string `json:"line"`
+	Column   string `json:"column"`
+}
+
 type MalwareDetails struct {
-	URL    string `json:"url"`
-	Threat string `json:"threat"`
-	AV     string `json:"av"`
+	URL        string      `json:"url"`
+	Threat     string      `json:"threat"`
+	AV         string      `json:"av"`
+	Initiators []Initiator `json:"initiators"`
 }
 
 type LastlineDetails struct {
