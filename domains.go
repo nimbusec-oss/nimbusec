@@ -7,7 +7,7 @@ import (
 
 type DomainService service
 
-func (srv DomainService) List(ctx context.Context) ([]Domain, error) {
+func (srv *DomainService) List(ctx context.Context) ([]Domain, error) {
 	domains := []Domain{}
 	err := srv.client.Do(ctx, http.MethodGet, "/v3/domains", nil, &domains)
 	return domains, err

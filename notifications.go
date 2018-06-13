@@ -13,7 +13,7 @@ func (srv *NotificationService) List(ctx context.Context) ([]Notification, error
 	return notifications, err
 }
 
-func (srv *NotificationService) ListByNotification(ctx context.Context, id NotificationID) ([]Notification, error) {
+func (srv *NotificationService) ListByDomain(ctx context.Context, id DomainID) ([]Notification, error) {
 	notifications := []Notification{}
 	err := srv.client.Do(ctx, http.MethodGet, string(id)+"/notifications", nil, &notifications)
 	return notifications, err
