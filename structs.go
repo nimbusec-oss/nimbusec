@@ -12,6 +12,16 @@ type Domain struct {
 	URL    string   `json:"url"`
 }
 
+type DomainMetadata struct {
+	Domain    DomainID   `json:"domain"`
+	Redirects []Redirect `json:"redirects"`
+}
+type Redirect struct {
+	URL        string `json:"url"`
+	Address    string `json:"address"`
+	StatusCode int    `json:"statusCode"`
+}
+
 type BundleID string
 type Bundle struct {
 	ID           BundleID `json:"id"`

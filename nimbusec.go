@@ -17,11 +17,12 @@ type Client struct {
 	http *http.Client
 	base string
 
-	common        service // Reuse a single struct instead of allocating one for each service on the heap.
-	Bundles       *BundleService
-	Domains       *DomainService
-	Issues        *IssueService
-	Notifications *NotificationService
+	common         service // Reuse a single struct instead of allocating one for each service on the heap.
+	Bundles        *BundleService
+	Domains        *DomainService
+	DomainMetadata *DomainMetadataService
+	Issues         *IssueService
+	Notifications  *NotificationService
 }
 
 type Error struct {
@@ -61,6 +62,7 @@ func NewClient(ctx context.Context, config Config) *Client {
 	c.common = service{client: c}
 	c.Bundles = (*BundleService)(&c.common)
 	c.Domains = (*DomainService)(&c.common)
+	c.DomainMetadata = (*DomainMetadataService)(&c.common)
 	c.Issues = (*IssueService)(&c.common)
 	c.Notifications = (*NotificationService)(&c.common)
 	return c
