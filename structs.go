@@ -13,8 +13,9 @@ type Domain struct {
 }
 
 type DomainMetadata struct {
-	Domain    DomainID   `json:"domain"`
-	Redirects []Redirect `json:"redirects"`
+	Domain    DomainID          `json:"domain"`
+	Redirects []Redirect        `json:"redirects"`
+	Headers   map[string]string `json:"headers"`
 }
 type Redirect struct {
 	URL        string `json:"url"`
