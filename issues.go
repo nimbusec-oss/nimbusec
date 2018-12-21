@@ -74,54 +74,44 @@ type issueDTO struct {
 func translateIssue(in issueDTO) (Issue, error) {
 	var err error
 	var out = in.Issue
+	var details interface{}
 
 	switch in.Event {
 	case "blacklist":
-		details := BlacklistDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+		details = BlacklistDetails{}
+
+	case "changed-file":
+		details = ChangedFileDetails{}
 
 	case "cms-version":
-		details := ApplicationOutdatedDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+		details = ApplicationOutdatedDetails{}
 
 	case "cms-vulnerable":
-		details := ApplicationVulnerableDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+		details = ApplicationVulnerableDetails{}
 
 	case "defacement":
-		details := DefacementDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+		details = DefacementDetails{}
 
 	case "malware":
-		details := MalwareDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+		details = MalwareDetails{}
 
-	case "tls-ciphersuite":
-		fallthrough
-	case "tls-protocol":
-		details := TLSConfigurationDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+	case "suspicious-link":
+		details = SuspiciousLinkDetails{}
 
-	case "tls-expires":
-		fallthrough
-	case "tls-hostname":
-		fallthrough
-	case "tls-notrust":
-		details := TLSCertificateDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+	case "suspicious-request":
+		details = SuspiciousRequestDetails{}
+
+	case "tls-ciphersuite", "tls-protocol":
+		details = TLSConfigurationDetails{}
+
+	case "tls-expires", "tls-hostname", "tls-notrust", "tls-sigalg":
+		details = TLSCertificateDetails{}
 
 	case "webshell":
-		details := WebshellDetails{}
-		err = json.Unmarshal(in.Details, &details)
-		out.Details = details
+		details = WebshellDetails{}
 	}
+	err = json.Unmarshal(in.Details, &details)
+	out.Details = details
 
 	return out, err
 }
