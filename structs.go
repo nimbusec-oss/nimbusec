@@ -121,6 +121,15 @@ type IssueUpdate struct {
 	Comment string      `json:"comment"`
 }
 
+type IssueFilter struct {
+	Status   IssueStatus `url:"status,omitempty"`
+	Severity int         `url:"severity,omitempty"`
+	Event    string      `url:"event,omitempty"`
+	Category string      `url:"category,omitempty"`
+	Limit    int         `url:"limit,omitempty"`
+	Sort     string      `url:"sort,omitempty"`
+}
+
 type IssueStatus string
 
 const (
