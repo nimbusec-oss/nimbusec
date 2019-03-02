@@ -4,12 +4,23 @@ import (
 	"time"
 )
 
+type ExternalID struct {
+	ExternalID string `json:"externalId"`
+	Comment    string `json:"comment"`
+}
+
 type DomainID string
 type Domain struct {
-	ID     DomainID `json:"id"`
-	Bundle BundleID `json:"bundle"`
-	Name   string   `json:"name"`
-	URL    string   `json:"url"`
+	ID          DomainID     `json:"id"`
+	Bundle      BundleID     `json:"bundle"`
+	Name        string       `json:"name"`
+	URL         string       `json:"url"`
+	ExternalIDs []ExternalID `json:"externalIds,omitempty"`
+}
+
+type DomainFilter struct {
+	Name       string `url:"name,omitempty"`
+	ExternalID string `url:"externalId,omitempty"`
 }
 
 type DomainMetadata struct {
@@ -105,29 +116,32 @@ type User struct{}
 
 type IssueID string
 type Issue struct {
-	ID        IssueID     `json:"id"`
-	Domain    DomainID    `json:"domain"`
-	Status    IssueStatus `json:"status"`
-	Event     string      `json:"event"`
-	Category  string      `json:"category"`
-	Severity  int         `json:"severity"`
-	FirstSeen time.Time   `json:"firstSeen"`
-	LastSeen  time.Time   `json:"lastSeen"`
-	Details   interface{} `json:"details,omitempty"`
+	ID          IssueID      `json:"id"`
+	Domain      DomainID     `json:"domain"`
+	Status      IssueStatus  `json:"status"`
+	Event       string       `json:"event"`
+	Category    string       `json:"category"`
+	Severity    int          `json:"severity"`
+	FirstSeen   time.Time    `json:"firstSeen"`
+	LastSeen    time.Time    `json:"lastSeen"`
+	Details     interface{}  `json:"details,omitempty"`
+	ExternalIDs []ExternalID `json:"externalIds,omitempty"`
 }
 
 type IssueUpdate struct {
-	Status  IssueStatus `json:"status"`
-	Comment string      `json:"comment"`
+	Status      IssueStatus  `json:"status"`
+	Comment     string       `json:"comment"`
+	ExternalIDs []ExternalID `json:"externalIds"`
 }
 
 type IssueFilter struct {
-	Status   IssueStatus `url:"status,omitempty"`
-	Severity int         `url:"severity,omitempty"`
-	Event    string      `url:"event,omitempty"`
-	Category string      `url:"category,omitempty"`
-	Limit    int         `url:"limit,omitempty"`
-	Sort     string      `url:"sort,omitempty"`
+	Status     IssueStatus `url:"status,omitempty"`
+	Severity   int         `url:"severity,omitempty"`
+	Event      string      `url:"event,omitempty"`
+	Category   string      `url:"category,omitempty"`
+	Limit      int         `url:"limit,omitempty"`
+	Sort       string      `url:"sort,omitempty"`
+	ExternalID string      `url:"externalId,omitempty"`
 }
 
 type IssueStatus string

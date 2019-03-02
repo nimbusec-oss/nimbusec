@@ -3,13 +3,25 @@ package nimbusec
 import (
 	"context"
 	"net/http"
+	"net/url"
+
+	"github.com/google/go-querystring/query"
 )
 
 type DomainService service
 
-func (srv *DomainService) List(ctx context.Context) ([]Domain, error) {
+func (srv *DomainService) List(ctx context.Context, filter *DomainFilter) ([]Domain, error) {
+	v, err := query.Values(filter)
+	if err != nil {
+		return nil, err
+	}
+	u := url.URL{
+		Path:     "/v3/domains",
+		RawQuery: v.Encode(),
+	}
+
 	domains := []Domain{}
-	err := srv.client.Do(ctx, http.MethodGet, "/v3/domains", nil, &domains)
+	err = srv.client.Do(ctx, http.MethodGet, u.String(), nil, &domains)
 	return domains, err
 }
 
