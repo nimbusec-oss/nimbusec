@@ -153,6 +153,16 @@ const (
 	IssueStatusFalsePositive IssueStatus = "falsepositive"
 )
 
+type IssuesSummary struct {
+	Domain              DomainID `json:"domain"`
+	MalwareSeverity     int      `json:"malwareSeverity"`
+	WebshellSeverity    int      `json:"webshellSeverity"`
+	ApplicationSeverity int      `json:"applicationSeverity"`
+	TLSSeverity         int      `json:"tlsSeverity"`
+	ReputationSeverity  int      `json:"reputationSeverity"`
+	DefacementSeverity  int      `json:"defacementSeverity"`
+}
+
 type ApplicationOutdatedDetails struct {
 	Name          string `json:"name"`
 	URL           string `json:"url,omitempty"`
