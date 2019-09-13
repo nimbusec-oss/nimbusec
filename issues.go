@@ -130,6 +130,8 @@ func translateIssue(in issueDTO) (Issue, error) {
 
 	case "webshell":
 		details = WebshellDetails{}
+	default:
+		return out, nil
 	}
 	err = json.Unmarshal(in.Details, &details)
 	out.Details = details
