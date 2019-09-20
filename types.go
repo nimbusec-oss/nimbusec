@@ -163,6 +163,16 @@ type IssuesSummary struct {
 	DefacementSeverity  int      `json:"defacementSeverity"`
 }
 
+type IssueHistory map[string]IssueCount
+type IssueCount struct {
+	Malware     int `json:"malware"`
+	Webshell    int `json:"webshell"`
+	Defacement  int `json:"defacement"`
+	Application int `json:"application"`
+	TLS         int `json:"tls"`
+	Reputation  int `json:"reputation"`
+}
+
 type ApplicationOutdatedDetails struct {
 	Name          string `json:"name"`
 	URL           string `json:"url,omitempty"`
