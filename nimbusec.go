@@ -21,6 +21,7 @@ type Client struct {
 	Bundles        *BundleService
 	Domains        *DomainService
 	DomainMetadata *DomainMetadataService
+	DomainStats    *DomainStatsService
 	Issues         *IssueService
 	Notifications  *NotificationService
 }

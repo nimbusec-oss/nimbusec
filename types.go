@@ -28,6 +28,16 @@ type DomainMetadata struct {
 	Redirects []Redirect        `json:"redirects"`
 	Headers   map[string]string `json:"headers"`
 }
+
+type DomainStats struct {
+	Domains      int `json:"domains"`
+	Malware      int `json:"malware"`
+	Defacement   int `json:"defacement"`
+	Reputation   int `json:"reputation"`
+	Applications int `json:"applications"`
+	TLS          int `json:"tls"`
+}
+
 type Redirect struct {
 	URL        string `json:"url"`
 	Address    string `json:"address"`
@@ -167,10 +177,10 @@ type IssueHistory map[string]IssueCount
 type IssueCount struct {
 	Malware     int `json:"malware"`
 	Webshell    int `json:"webshell"`
-	Defacement  int `json:"defacement"`
 	Application int `json:"application"`
 	TLS         int `json:"tls"`
 	Reputation  int `json:"reputation"`
+	Defacement  int `json:"defacement"`
 }
 
 type ApplicationOutdatedDetails struct {
