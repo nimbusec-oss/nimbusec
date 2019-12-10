@@ -32,10 +32,11 @@ type DomainMetadata struct {
 type DomainStats struct {
 	Domains     int `json:"domains"`
 	Malware     int `json:"malware"`
-	Defacement  int `json:"defacement"`
-	Reputation  int `json:"reputation"`
+	Webshell    int `json:"webshell"`
 	Application int `json:"application"`
 	TLS         int `json:"tls"`
+	Reputation  int `json:"reputation"`
+	Defacement  int `json:"defacement"`
 }
 
 type Redirect struct {
