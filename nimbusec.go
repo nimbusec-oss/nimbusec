@@ -64,6 +64,7 @@ func NewClient(ctx context.Context, config Config) *Client {
 	c.Bundles = (*BundleService)(&c.common)
 	c.Domains = (*DomainService)(&c.common)
 	c.DomainMetadata = (*DomainMetadataService)(&c.common)
+	c.DomainStats = (*DomainStatsService)(&c.common)
 	c.Issues = (*IssueService)(&c.common)
 	c.Notifications = (*NotificationService)(&c.common)
 	return c
