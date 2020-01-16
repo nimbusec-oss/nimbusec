@@ -98,37 +98,37 @@ func translateIssue(in issueDTO) (Issue, error) {
 	var details interface{}
 
 	switch in.Event {
-	case "blacklist":
+	case IssueEventBlacklist:
 		details = BlacklistDetails{}
 
-	case "changed-file":
+	case IssueEventChangedFile:
 		details = ChangedFileDetails{}
 
-	case "cms-version":
+	case IssueEventCMSVersion:
 		details = ApplicationOutdatedDetails{}
 
-	case "cms-vulnerable":
+	case IssueEventCMSVulnerable:
 		details = ApplicationVulnerableDetails{}
 
-	case "defacement":
+	case IssueEventDefacement:
 		details = DefacementDetails{}
 
-	case "malware":
+	case IssueEventMalware:
 		details = MalwareDetails{}
 
-	case "suspicious-link":
+	case IssueEventSuspiciousLink:
 		details = SuspiciousLinkDetails{}
 
-	case "suspicious-request":
+	case IssueEventSuspciousRequest:
 		details = SuspiciousRequestDetails{}
 
-	case "tls-ciphersuite", "tls-protocol":
+	case IssueEventTLSCipherSuite, IssueEventTLSProtocol:
 		details = TLSConfigurationDetails{}
 
-	case "tls-expires", "tls-hostname", "tls-notrust", "tls-sigalg":
+	case IssueEventTLSExpires, IssueEventTLSHostname, IssueEventTLSNoTrust, IssueEventTLSSigAlg:
 		details = TLSCertificateDetails{}
 
-	case "webshell":
+	case IssueEventWebshell:
 		details = WebshellDetails{}
 	default:
 		return out, nil
