@@ -242,12 +242,14 @@ type LastlineDetails struct {
 }
 
 type TLSCertificateDetails struct {
-	Order     int      `json:"order"`
-	NotAfter  int64    `json:"notAfter"`
-	NotBefore int64    `json:"notBefore"`
-	Issuer    string   `json:"issuer"`
-	CName     string   `json:"cName"`
-	AltNames  []string `json:"altNames"`
+	Order      int      `json:"order"`
+	NotAfter   int64    `json:"notAfter"`
+	NotBefore  int64    `json:"notBefore"`
+	Issuer     string   `json:"issuer"`
+	CName      string   `json:"cName"`
+	AltNames   []string `json:"altNames"`
+	SigAlgName string   `json:"sigAlgName"`
+	SigAlgOID  string   `json:"sigAlgOID"`
 }
 
 type TLSConfigurationDetails struct {
