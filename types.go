@@ -113,6 +113,7 @@ type Notification struct {
 	Blacklist  int            `json:"blacklist"`
 	Defacement int            `json:"defacement"`
 	Malware    int            `json:"malware"`
+	Webhook    *string        `json:"webhook,omitempty"`
 }
 
 type NotificationUpdate struct {
