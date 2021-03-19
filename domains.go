@@ -43,6 +43,11 @@ func (srv *DomainService) Update(ctx context.Context, id DomainID, update Domain
 	return domain, err
 }
 
+func (srv *DomainService) Disable(ctx context.Context, id DomainID) error {
+	err := srv.client.Do(ctx, http.MethodPatch, string(id)+"/disable", nil, nil)
+	return err
+}
+
 func (srv *DomainService) Delete(ctx context.Context, id DomainID) error {
 	err := srv.client.Do(ctx, http.MethodDelete, string(id), nil, nil)
 	return err
