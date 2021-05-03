@@ -1,6 +1,8 @@
 package nimbusec
 
 import (
+	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -299,4 +301,110 @@ type WebshellDetails struct {
 	MTime       int    `json:"mtime"`
 	Threat      string `json:"threat"`
 	Permissions string `json:"permissions"`
+}
+
+// UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
+func (issue *Issue) UnmarshalJSON(b []byte) error {
+	type TempIssueType Issue
+	tempIssue := TempIssueType{}
+	err := json.Unmarshal(b, &tempIssue) // seperate type needed to prevent recursive unmarshal-loop
+	if err != nil {
+		return err
+	}
+	*issue = Issue(tempIssue)
+	if issue.Details == nil {
+		return nil // no details to cast
+	}
+
+	// issue.Details is map[string]interface{} at this point. marshal again, to allow a specific unmarshal
+	detail, err := json.Marshal(issue.Details)
+	if err != nil {
+		return err
+	}
+
+	issue.Details, err = UnmarshalDetails(issue.Event, detail)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// UnmarshalDetails converts the given details value to the correct details type
+func UnmarshalDetails(event string, details []byte) (interface{}, error) {
+	var err error
+	switch event {
+	case IssueEventBlacklist:
+		specificDetails := BlacklistDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventSuspiciousLink:
+		specificDetails := SuspiciousLinkDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventSuspciousRequest:
+		specificDetails := SuspiciousRequestDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventMalware:
+		specificDetails := MalwareDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventDefacement:
+		specificDetails := DefacementDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventCMSVersion:
+		specificDetails := ApplicationOutdatedDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventCMSVulnerable:
+		specificDetails := ApplicationVulnerableDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventWebshell:
+		specificDetails := WebshellDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventTLSProtocol, IssueEventTLSCipherSuite:
+		specificDetails := TLSConfigurationDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventTLSSigAlg, IssueEventTLSNoTrust, IssueEventTLSHostname, IssueEventTLSExpires, IssueEventTLSLegacy, IssueEventTLSMisconfiguredChain, IssueEventTLSRevokedCert:
+		specificDetails := TLSCertificateDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	default:
+		return nil, fmt.Errorf("event '%s' unknown | %s", event, string(details))
+	}
 }
