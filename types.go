@@ -25,6 +25,16 @@ type DomainFilter struct {
 	ExternalID string `url:"externalId,omitempty"`
 }
 
+type DomainApplication struct {
+	Name       string `json:"name"`
+	Version    string `json:"version"`
+	Path       string `json:"path"`
+	Category   string `json:"category"`
+	Source     string `json:"source"`
+	Latest     bool   `json:"latest"`
+	Vulnerable bool   `json:"vulnerable"`
+}
+
 type DomainMetadata struct {
 	Domain    DomainID          `json:"domain"`
 	Redirects []Redirect        `json:"redirects"`
@@ -126,7 +136,45 @@ type NotificationUpdate struct {
 }
 
 type UserID string
-type User struct{}
+type User struct {
+	ID           UserID `json:"id"`
+	Login        string `json:"login"`
+	Mail         string `json:"mail"`
+	Role         string `json:"role"`
+	Company      string `json:"company"`
+	Surname      string `json:"surname"`
+	Forename     string `json:"forename"`
+	Title        string `json:"title"`
+	Mobile       string `json:"mobile"`
+	Password     string `json:"password"`
+	SignatureKey string `json:"signatureKey"`
+}
+
+type UserDomains struct {
+	Domains []DomainID `json:"domains"`
+}
+
+type UserConfig struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+	Type  string `json:"type"`
+}
+type DomainConfig struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
+type Screenshot struct {
+	Target   string `json:"target"`
+	Previous Image  `json:"previous"`
+	Current  Image  `json:"current"`
+}
+
+type Image struct {
+	Date time.Time `json:"date"`
+	MIME string    `json:"mime"`
+	URL  string    `json:"url"`
+}
 
 type IssueID string
 type Issue struct {
@@ -407,4 +455,25 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("event '%s' unknown | %s", event, string(details))
 	}
+}
+
+type TokenID string
+type APIToken struct {
+	ID          TokenID   `json:"id"`
+	Name        string    `json:"name"`
+	Key         string    `json:"key"`
+	Secret      string    `json:"secret"`
+	Roles       string    `json:"roles"`
+	LastCall    time.Time `json:"lastCall"`
+	LastVersion int       `json:"lastVersion"`
+}
+
+type Agent struct {
+	Os      string `json:"os"`
+	Arch    string `json:"arch"`
+	Version string `json:"version"`
+	Md5     string `json:"md5"`
+	Sha1    string `json:"sha1"`
+	Format  string `json:"format"`
+	URL     string `json:"url"`
 }
