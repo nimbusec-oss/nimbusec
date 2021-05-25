@@ -135,7 +135,7 @@ type NotificationUpdate struct {
 	Malware    int    `json:"malware"`
 }
 
-type UserID int64
+type UserID string
 type User struct {
 	ID           UserID `json:"id"`
 	Login        string `json:"login"`

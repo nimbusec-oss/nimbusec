@@ -22,7 +22,7 @@ func (srv *NotificationService) ListByDomain(ctx context.Context, id DomainID) (
 
 func (srv *NotificationService) ListByUser(ctx context.Context, id UserID) ([]Notification, error) {
 	notifications := []Notification{}
-	err := srv.client.Do(ctx, http.MethodGet, fmt.Sprintf("/v3/users/%d/notifications", id), nil, &notifications)
+	err := srv.client.Do(ctx, http.MethodGet, fmt.Sprintf("/v3/users/%s/notifications", id), nil, &notifications)
 	return notifications, err
 }
 
