@@ -2,6 +2,7 @@ package nimbusec
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 )
 
@@ -15,6 +16,6 @@ func (srv *BundleService) List(ctx context.Context) ([]Bundle, error) {
 
 func (srv *BundleService) Get(ctx context.Context, id BundleID) (Bundle, error) {
 	bundle := Bundle{}
-	err := srv.client.Do(ctx, http.MethodGet, string(id), nil, &bundle)
+	err := srv.client.Do(ctx, http.MethodGet, fmt.Sprintf("/v3/bundles/%s", id), nil, &bundle)
 	return bundle, err
 }

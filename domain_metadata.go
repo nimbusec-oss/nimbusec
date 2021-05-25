@@ -2,6 +2,7 @@ package nimbusec
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 )
 
@@ -15,6 +16,6 @@ func (srv *DomainMetadataService) List(ctx context.Context) ([]DomainMetadata, e
 
 func (srv *DomainMetadataService) Get(ctx context.Context, id DomainID) (DomainMetadata, error) {
 	domainMetadata := DomainMetadata{}
-	err := srv.client.Do(ctx, http.MethodGet, string(id)+"/metadata", nil, &domainMetadata)
+	err := srv.client.Do(ctx, http.MethodGet, fmt.Sprintf("/v3/domains/%d/metadata", id), nil, &domainMetadata)
 	return domainMetadata, err
 }

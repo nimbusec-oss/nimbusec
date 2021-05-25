@@ -3,6 +3,7 @@ package nimbusec
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 
@@ -44,7 +45,7 @@ func (srv *IssueService) ListByDomain(ctx context.Context, id DomainID, filter *
 		return nil, err
 	}
 	u := url.URL{
-		Path:     string(id) + "/issues",
+		Path:     fmt.Sprintf("/v3/domains/%d/issues", id),
 		RawQuery: v.Encode(),
 	}
 
@@ -67,7 +68,7 @@ func (srv *IssueService) ListByDomain(ctx context.Context, id DomainID, filter *
 
 func (srv *IssueService) Get(ctx context.Context, id IssueID) (Issue, error) {
 	issue := issueDTO{}
-	err := srv.client.Do(ctx, http.MethodGet, string(id), nil, &issue)
+	err := srv.client.Do(ctx, http.MethodGet, fmt.Sprintf("/v3/issues/%d", id), nil, &issue)
 	if err != nil {
 		return Issue{}, err
 	}
@@ -77,7 +78,7 @@ func (srv *IssueService) Get(ctx context.Context, id IssueID) (Issue, error) {
 
 func (srv *IssueService) Update(ctx context.Context, id IssueID, update IssueUpdate) (Issue, error) {
 	issue := issueDTO{}
-	err := srv.client.Do(ctx, http.MethodPut, string(id), update, &issue)
+	err := srv.client.Do(ctx, http.MethodPut, fmt.Sprintf("/v3/issues/%d", id), update, &issue)
 	if err != nil {
 		return Issue{}, err
 	}

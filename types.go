@@ -11,7 +11,7 @@ type ExternalID struct {
 	Comment    string `json:"comment"`
 }
 
-type DomainID string
+type DomainID int64
 type Domain struct {
 	ID          DomainID     `json:"id"`
 	Bundle      BundleID     `json:"bundle"`
@@ -116,7 +116,7 @@ type Bundle struct {
 	} `json:"features"`
 }
 
-type NotificationID string
+type NotificationID int64
 type Notification struct {
 	ID         NotificationID `json:"id"`
 	Domain     DomainID       `json:"domain"`
@@ -135,7 +135,7 @@ type NotificationUpdate struct {
 	Malware    int    `json:"malware"`
 }
 
-type UserID string
+type UserID int64
 type User struct {
 	ID           UserID `json:"id"`
 	Login        string `json:"login"`
@@ -176,7 +176,7 @@ type Image struct {
 	URL  string    `json:"url"`
 }
 
-type IssueID string
+type IssueID int64
 type Issue struct {
 	ID          IssueID      `json:"id"`
 	Domain      DomainID     `json:"domain"`
@@ -457,7 +457,7 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 	}
 }
 
-type TokenID string
+type TokenID int64
 type APIToken struct {
 	ID          TokenID   `json:"id"`
 	Name        string    `json:"name"`

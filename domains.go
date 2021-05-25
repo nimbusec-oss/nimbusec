@@ -2,6 +2,7 @@ package nimbusec
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/url"
 
@@ -27,7 +28,7 @@ func (srv *DomainService) List(ctx context.Context, filter *DomainFilter) ([]Dom
 
 func (srv *DomainService) Get(ctx context.Context, id DomainID) (Domain, error) {
 	domain := Domain{}
-	err := srv.client.Do(ctx, http.MethodGet, string(id), nil, &domain)
+	err := srv.client.Do(ctx, http.MethodGet, fmt.Sprintf("/v3/domains/%d", id), nil, &domain)
 	return domain, err
 }
 
@@ -39,16 +40,16 @@ func (srv *DomainService) Create(ctx context.Context, create Domain) (Domain, er
 
 func (srv *DomainService) Update(ctx context.Context, id DomainID, update Domain) (Domain, error) {
 	domain := Domain{}
-	err := srv.client.Do(ctx, http.MethodPut, string(id), update, &domain)
+	err := srv.client.Do(ctx, http.MethodPut, fmt.Sprintf("/v3/domains/%d", id), update, &domain)
 	return domain, err
 }
 
 func (srv *DomainService) Disable(ctx context.Context, id DomainID) error {
-	err := srv.client.Do(ctx, http.MethodPatch, string(id)+"/disable", nil, nil)
+	err := srv.client.Do(ctx, http.MethodPatch, fmt.Sprintf("/v3/domains/%d/disable", id), nil, nil)
 	return err
 }
 
 func (srv *DomainService) Delete(ctx context.Context, id DomainID) error {
-	err := srv.client.Do(ctx, http.MethodDelete, string(id), nil, nil)
+	err := srv.client.Do(ctx, http.MethodDelete, fmt.Sprintf("/v3/domains/%d", id), nil, nil)
 	return err
 }
