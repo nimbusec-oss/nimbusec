@@ -457,11 +457,10 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 	}
 }
 
-type TokenID int64
+type TokenID string
 type APIToken struct {
-	ID          TokenID   `json:"id"`
 	Name        string    `json:"name"`
-	Key         string    `json:"key"`
+	Key         TokenID   `json:"key"`
 	Secret      string    `json:"secret"`
 	Roles       string    `json:"roles"`
 	LastCall    time.Time `json:"lastCall"`
