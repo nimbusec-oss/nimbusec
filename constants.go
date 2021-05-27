@@ -20,3 +20,8 @@ const (
 	IssueEventTLSRevokedCert        = "tls-revoked-cert"
 	IssueEventWebshell              = "webshell"
 )
+
+const (
+	RoleAgent    Role = "agent"
+	RoleReadOnly Role = "readonly"
+)
