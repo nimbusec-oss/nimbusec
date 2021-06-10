@@ -396,7 +396,7 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventSuspciousRequest:
+	case IssueEventSuspiciousRequest:
 		specificDetails := SuspiciousRequestDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
@@ -445,7 +445,7 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventTLSSigAlg, IssueEventTLSNoTrust, IssueEventTLSHostname, IssueEventTLSExpires, IssueEventTLSLegacy, IssueEventTLSMisconfiguredChain, IssueEventTLSRevokedCert:
+	case IssueEventTLSSigAlg, IssueEventTLSNoTrust, IssueEventTLSHostnameMismatch, IssueEventTLSExpires, IssueEventTLSLegacy, IssueEventTLSMisconfiguredChain, IssueEventTLSRevokedCertificate:
 		specificDetails := TLSCertificateDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
