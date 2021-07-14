@@ -2,7 +2,6 @@ package nimbusec
 
 const (
 	IssueEventBlacklist             = "blacklist"
-	IssueEventChangedFile           = "changed-file"
 	IssueEventCMSVersion            = "cms-version"
 	IssueEventCMSVulnerable         = "cms-vulnerable"
 	IssueEventDefacement            = "defacement"
@@ -19,6 +18,7 @@ const (
 	IssueEventTLSMisconfiguredChain = "tls-misconfigured-chain"
 	IssueEventTLSRevokedCertificate = "tls-revoked-cert"
 	IssueEventWebshell              = "webshell"
+	IssueEventBaselineEmpty         = "baseline-empty"
 )
 
 const (

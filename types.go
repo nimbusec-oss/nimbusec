@@ -328,15 +328,8 @@ type SuspiciousRequestDetails struct {
 	Blacklists []BlacklistDetails `json:"blacklists"`
 }
 
-type ChangedFileDetails struct {
-	URL    string  `json:"url"`
-	DiffID int     `json:"diff"`
-	Score  float64 `json:"score"`
-	Votes  map[string]struct {
-		Votes       int         `json:"votes"`
-		Probability float64     `json:"probability"`
-		Extra       interface{} `json:"extra"`
-	} `json:"votes"`
+type BaselineDetails struct {
+	ClientID string `json:"clientID"`
 }
 
 type WebshellDetails struct {
@@ -433,6 +426,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventWebshell:
 		specificDetails := WebshellDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventBaselineEmpty:
+		specificDetails := BaselineDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
