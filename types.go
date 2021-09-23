@@ -257,8 +257,9 @@ type ApplicationVulnerableDetails struct {
 }
 
 type DefacementDetails struct {
-	URL    string `json:"url"`
-	Threat string `json:"threat"`
+	URL     string `json:"url"`
+	Threat  string `json:"threat"`
+	Profile string `json:"profile"`
 }
 
 type ZoneHDetails struct {
@@ -279,6 +280,7 @@ type MalwareDetails struct {
 	Threat     string      `json:"threat"`
 	AV         string      `json:"av"`
 	Initiators []Initiator `json:"initiators"`
+	Profile    string      `json:"profile"`
 }
 
 type LastlineDetails struct {
@@ -312,6 +314,7 @@ type BlacklistDetails struct {
 	Blacklist    string   `json:"blacklist"`
 	BlacklistURL string   `json:"blacklistURL"`
 	Reasons      []string `json:"reasons"`
+	Profile      string   `json:"profile"`
 }
 
 type SuspiciousLinkDetails struct {
