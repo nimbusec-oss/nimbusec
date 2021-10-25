@@ -186,6 +186,8 @@ type Issue struct {
 	Severity    int          `json:"severity"`
 	FirstSeen   time.Time    `json:"firstSeen"`
 	LastSeen    time.Time    `json:"lastSeen"`
+	Regions     []string     `json:"regions,omitempty"`
+	Viewports   []string     `json:"viewports,omitempty"`
 	Details     interface{}  `json:"details,omitempty"`
 	ExternalIDs []ExternalID `json:"externalIds,omitempty"`
 }
