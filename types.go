@@ -82,7 +82,7 @@ type Bundle struct {
 			Available bool `json:"available"`
 			Nimbusec  bool `json:"nimbusec"`
 			Ikarus    bool `json:"ikarus"`
-			Avira     bool `json:"avira"`
+			Avira     bool `json:"avira"` // Deprecated. Avira is not used as of 01.03.2022 anymore
 			LastLine  bool `json:"lastline"`
 			ClamAV    bool `json:"clamav"`
 		} `json:"malware"`
