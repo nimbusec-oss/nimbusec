@@ -218,13 +218,21 @@ const (
 )
 
 type IssuesSummary struct {
-	Domain              DomainID `json:"domain"`
-	MalwareSeverity     int      `json:"malwareSeverity"`
-	WebshellSeverity    int      `json:"webshellSeverity"`
-	ApplicationSeverity int      `json:"applicationSeverity"`
-	TLSSeverity         int      `json:"tlsSeverity"`
-	ReputationSeverity  int      `json:"reputationSeverity"`
-	DefacementSeverity  int      `json:"defacementSeverity"`
+	Domain DomainID `json:"domain"`
+
+	MalwareSeverity     int `json:"malwareSeverity"`
+	WebshellSeverity    int `json:"webshellSeverity"`
+	ApplicationSeverity int `json:"applicationSeverity"`
+	TLSSeverity         int `json:"tlsSeverity"`
+	ReputationSeverity  int `json:"reputationSeverity"`
+	DefacementSeverity  int `json:"defacementSeverity"`
+
+	MalwareCount     int `json:"malwareCount"`
+	WebShellCount    int `json:"webShellCount"`
+	ApplicationCount int `json:"applicationCount"`
+	TLSCount         int `json:"tlsCount"`
+	ReputationCount  int `json:"reputationCount"`
+	DefacementCount  int `json:"defacementCount"`
 }
 
 type IssueHistory map[string]IssueCount
