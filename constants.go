@@ -19,6 +19,7 @@ const (
 	IssueEventTLSRevokedCertificate = "tls-revoked-cert"
 	IssueEventWebshell              = "webshell"
 	IssueEventBaselineEmpty         = "baseline-empty"
+	IssueEventContentViolation      = "content-violation"
 )
 
 const (

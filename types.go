@@ -357,6 +357,16 @@ type WebshellDetails struct {
 	Permissions string `json:"permissions"`
 }
 
+type ContentViolationDetails struct {
+	NewHostnames       map[string][]string `json:"newHostnames"`
+	NewAResources      map[string]struct{} `json:"newAResources"`
+	NewImgResources    map[string]struct{} `json:"newImgResources"`
+	NewInputResources  map[string]struct{} `json:"newInputResources"`
+	NewButtonResources map[string]struct{} `json:"newButtonResources"`
+	NewEventAttributes map[string]struct{} `json:"newEventAttributes"`
+	Profile            string              `json:"profile"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -460,6 +470,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventTLSSigAlg, IssueEventTLSNoTrust, IssueEventTLSHostnameMismatch, IssueEventTLSExpires, IssueEventTLSLegacy, IssueEventTLSMisconfiguredChain, IssueEventTLSRevokedCertificate:
 		specificDetails := TLSCertificateDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventContentViolation:
+		specificDetails := ContentViolationDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
