@@ -20,6 +20,7 @@ const (
 	IssueEventWebshell              = "webshell"
 	IssueEventBaselineEmpty         = "baseline-empty"
 	IssueEventContentViolation      = "content-violation"
+	IssueEventNoHTTPSRedirect       = "no-https-redirect"
 )
 
 const (
