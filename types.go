@@ -482,6 +482,10 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
+	case IssueEventNoHTTPSRedirect:
+		// currently no specific details are stored for "no-https-redirect"
+		fmt.Printf("event: %s does not store specific details", event)
+		return nil, nil
 	default:
 		return nil, fmt.Errorf("event '%s' unknown | %s", event, string(details))
 	}
