@@ -49,6 +49,17 @@ func (srv *DomainService) Disable(ctx context.Context, id DomainID) error {
 	return err
 }
 
+func (srv *DomainService) DisableMultiple(ctx context.Context, ids []DomainID) error {
+	payload := struct {
+		DomainIDs []int64 `json:"domainIDs"`
+	}{}
+	for _, id := range ids {
+		payload.DomainIDs = append(payload.DomainIDs, int64(id))
+	}
+	err := srv.client.Do(ctx, http.MethodPatch, "/v3/domains/disable", payload, nil)
+	return err
+}
+
 func (srv *DomainService) Delete(ctx context.Context, id DomainID) error {
 	err := srv.client.Do(ctx, http.MethodDelete, fmt.Sprintf("/v3/domains/%d", id), nil, nil)
 	return err
