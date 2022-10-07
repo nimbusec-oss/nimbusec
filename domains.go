@@ -49,7 +49,7 @@ func (srv *DomainService) Disable(ctx context.Context, id DomainID) error {
 	return err
 }
 
-func (srv *DomainService) DisableMultiple(ctx context.Context, ids []DomainID) error {
+func (srv *DomainService) DisableBatch(ctx context.Context, ids []DomainID) error {
 	payload := struct {
 		DomainIDs []int64 `json:"domainIDs"`
 	}{}

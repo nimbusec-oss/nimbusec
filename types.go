@@ -164,6 +164,8 @@ type DomainConfig struct {
 	Value string `json:"value"`
 }
 
+type ScreenshotType string
+
 type Screenshot struct {
 	Target   string `json:"target"`
 	Previous Image  `json:"previous"`
@@ -174,6 +176,13 @@ type Image struct {
 	Date time.Time `json:"date"`
 	MIME string    `json:"mime"`
 	URL  string    `json:"url"`
+}
+
+type Region string
+type Viewport string
+type ScreenshotFilter struct {
+	Region   Region   `url:"region,omitempty"`
+	Viewport Viewport `url:"viewport,omitempty"`
 }
 
 type IssueID int64

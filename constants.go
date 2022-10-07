@@ -27,3 +27,15 @@ const (
 	RoleAgent    Role = "agent"
 	RoleReadOnly Role = "readonly"
 )
+
+const (
+	ScreenshotCurrent  ScreenshotType = "current"
+	ScreenshotPrevious ScreenshotType = "previous"
+
+	RegionEU   Region = "EU"
+	RegionUS   Region = "US"
+	RegionASIA Region = "ASIA"
+
+	ViewportDesktop Viewport = "desktop"
+	ViewportMobile  Viewport = "mobile"
+)

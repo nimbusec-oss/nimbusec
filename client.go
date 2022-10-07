@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"golang.org/x/oauth2/clientcredentials"
@@ -24,15 +26,16 @@ type Client struct {
 	DomainStats    *DomainStatsService
 	Issues         *IssueService
 	Notifications  *NotificationService
+	Screenshots    *ScreenshotService
 }
 
 type Error struct {
-	Message    string            `json:"error"`
-	Validation map[string]string `json:"validation,omitempty"`
+	Message    string `json:"message"`
+	StatusCode int    `json:"statusCode"`
 }
 
 func (e Error) Error() string {
-	return e.Message
+	return fmt.Sprintf("%d| %s", e.StatusCode, e.Message)
 }
 
 type Config struct {
@@ -67,6 +70,7 @@ func NewClient(ctx context.Context, config Config) *Client {
 	c.DomainStats = (*DomainStatsService)(&c.common)
 	c.Issues = (*IssueService)(&c.common)
 	c.Notifications = (*NotificationService)(&c.common)
+	c.Screenshots = (*ScreenshotService)(&c.common)
 	return c
 }
 
@@ -108,7 +112,7 @@ func (client *Client) Do(ctx context.Context, method, url string, in, out interf
 
 	// check for api errors, try to decode in error object
 	if resp.StatusCode >= 300 {
-		msg := Error{}
+		msg := Error{StatusCode: resp.StatusCode}
 		err = json.NewDecoder(resp.Body).Decode(&msg)
 		if err != nil {
 			return err
@@ -118,9 +122,18 @@ func (client *Client) Do(ctx context.Context, method, url string, in, out interf
 	}
 
 	if out != nil {
-		err = json.NewDecoder(resp.Body).Decode(&out)
-		if err != nil {
-			return err
+		switch e := out.(type) {
+		case *[]byte:
+			read, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			*e = read
+		default:
+			err = json.NewDecoder(resp.Body).Decode(&out)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
