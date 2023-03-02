@@ -376,6 +376,33 @@ type ContentViolationDetails struct {
 	Profile            string              `json:"profile"`
 }
 
+type SeospamDetails struct {
+	Profile         string        `json:"profile"`
+	CrawlerResult   SeospamResult `json:"crawlerResult"`
+	GooglebotResult SeospamResult `json:"googlebotResult"`
+}
+
+type SeospamResult struct {
+	Title       string `json:"Title"`
+	Keywords    string `json:"Keywords"`
+	Description string `json:"Description"`
+}
+
+type CMSTamperedDetails struct {
+	Url          string `json:"url"`
+	Name         string `json:"name"`
+	Path         string `json:"path"`
+	Version      string `json:"version"`
+	OriginalHash string `json:"originalHash"`
+	TamperedHash string `json:"tamperedHash"`
+}
+
+type SuspiciousRedirectDetails struct {
+	Profile              string     `json:"profile"`
+	CurrentRedirects     []Redirect `json:"currentRedirects"`
+	ValidRedirectDomains []string   `json:"validRedirectDomains"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -486,6 +513,27 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventContentViolation:
 		specificDetails := ContentViolationDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventSeospam:
+		specificDetails := SeospamDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventCMSTampered:
+		specificDetails := CMSTamperedDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventSuspiciousRedirect:
+		specificDetails := SuspiciousRedirectDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
