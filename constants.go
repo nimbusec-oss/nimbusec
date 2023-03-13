@@ -1,13 +1,18 @@
 package nimbusec
 
 const (
-	IssueEventBlacklist             = "blacklist"
-	IssueEventCMSVersion            = "cms-version"
-	IssueEventCMSVulnerable         = "cms-vulnerable"
-	IssueEventDefacement            = "defacement"
-	IssueEventMalware               = "malware"
-	IssueEventSuspiciousLink        = "suspicious-link"
-	IssueEventSuspiciousRequest     = "suspicious-request"
+	IssueEventBlacklist  = "blacklist"
+	IssueEventDefacement = "defacement"
+	IssueEventMalware    = "malware"
+
+	IssueEventCMSVersion    = "cms-version"
+	IssueEventCMSVulnerable = "cms-vulnerable"
+	IssueEventCMSTampered   = "cms-tampered"
+
+	IssueEventSuspiciousLink     = "suspicious-link"
+	IssueEventSuspiciousRequest  = "suspicious-request"
+	IssueEventSuspiciousRedirect = "suspicious-redirect"
+
 	IssueEventTLSCipherSuite        = "tls-ciphersuite"
 	IssueEventTLSProtocol           = "tls-protocol"
 	IssueEventTLSExpires            = "tls-expires"
@@ -17,10 +22,12 @@ const (
 	IssueEventTLSLegacy             = "tls-legacy"
 	IssueEventTLSMisconfiguredChain = "tls-misconfigured-chain"
 	IssueEventTLSRevokedCertificate = "tls-revoked-cert"
-	IssueEventWebshell              = "webshell"
-	IssueEventBaselineEmpty         = "baseline-empty"
-	IssueEventContentViolation      = "content-violation"
-	IssueEventNoHTTPSRedirect       = "no-https-redirect"
+
+	IssueEventBaselineEmpty    = "baseline-empty"
+	IssueEventContentViolation = "content-violation"
+	IssueEventNoHTTPSRedirect  = "no-https-redirect"
+	IssueEventSeospam          = "seospam"
+	IssueEventWebshell         = "webshell"
 )
 
 const (
