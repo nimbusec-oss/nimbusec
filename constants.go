@@ -28,6 +28,10 @@ const (
 	IssueEventNoHTTPSRedirect  = "no-https-redirect"
 	IssueEventSeospam          = "seospam"
 	IssueEventWebshell         = "webshell"
+
+	EventHijackResource = "hijack-resource"
+	EventHijackLink     = "hijack-link"
+	Event404Link        = "404-link"
 )
 
 const (

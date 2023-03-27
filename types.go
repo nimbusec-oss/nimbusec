@@ -403,6 +403,11 @@ type SuspiciousRedirectDetails struct {
 	ValidRedirectDomains []string   `json:"validRedirectDomains"`
 }
 
+type HijackDetails struct {
+	URL        string   `json:"url"`
+	Initiators []string `json:"initiators"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -534,6 +539,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventSuspiciousRedirect:
 		specificDetails := SuspiciousRedirectDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case EventHijackResource, EventHijackLink, Event404Link:
+		specificDetails := HijackDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
