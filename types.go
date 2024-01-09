@@ -408,6 +408,11 @@ type HijackDetails struct {
 	Initiators []string `json:"initiators"`
 }
 
+type TakeoverDNSDetails struct {
+	Service     string   `json:"service"`
+	Nameservers []string `json:"nameservers"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -546,6 +551,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case EventHijackResource, EventHijackLink, Event404Link:
 		specificDetails := HijackDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case EventTakeoverDNS:
+		specificDetails := TakeoverDNSDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err

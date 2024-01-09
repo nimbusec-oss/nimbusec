@@ -32,6 +32,7 @@ const (
 	EventHijackResource = "hijack-resource"
 	EventHijackLink     = "hijack-link"
 	Event404Link        = "404-link"
+	EventTakeoverDNS    = "takeover-dns"
 )
 
 const (
