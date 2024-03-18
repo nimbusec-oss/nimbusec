@@ -12,6 +12,7 @@ const (
 	IssueEventSuspiciousLink     = "suspicious-link"
 	IssueEventSuspiciousRequest  = "suspicious-request"
 	IssueEventSuspiciousRedirect = "suspicious-redirect"
+	EventParkedDomain            = "parked"
 
 	IssueEventTLSCipherSuite        = "tls-ciphersuite"
 	IssueEventTLSProtocol           = "tls-protocol"

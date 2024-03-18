@@ -413,6 +413,12 @@ type TakeoverDNSDetails struct {
 	Nameservers []string `json:"nameservers"`
 }
 
+type ParkedDomainDetails struct {
+	NsMatch       string `json:"nsMatch"`
+	WarcMatch     string `json:"warcMatch"`
+	FoundByPython bool   `json:"foundByPython"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -558,6 +564,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case EventTakeoverDNS:
 		specificDetails := TakeoverDNSDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case EventParkedDomain:
+		specificDetails := ParkedDomainDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
