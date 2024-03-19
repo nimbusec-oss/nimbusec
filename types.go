@@ -555,21 +555,21 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case EventHijackResource, EventHijackLink, Event404Link:
+	case IssueEventHijackResource, IssueEventHijackLink, IssueEvent404Link:
 		specificDetails := HijackDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
 		}
 		return specificDetails, nil
-	case EventTakeoverDNS:
+	case IssueEventTakeoverDNS:
 		specificDetails := TakeoverDNSDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
 		}
 		return specificDetails, nil
-	case EventParkedDomain:
+	case IssueEventParkedDomain:
 		specificDetails := ParkedDomainDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {

@@ -12,7 +12,7 @@ const (
 	IssueEventSuspiciousLink     = "suspicious-link"
 	IssueEventSuspiciousRequest  = "suspicious-request"
 	IssueEventSuspiciousRedirect = "suspicious-redirect"
-	EventParkedDomain            = "parked"
+	IssueEventParkedDomain       = "parked"
 
 	IssueEventTLSCipherSuite        = "tls-ciphersuite"
 	IssueEventTLSProtocol           = "tls-protocol"
@@ -30,10 +30,10 @@ const (
 	IssueEventSeospam          = "seospam"
 	IssueEventWebshell         = "webshell"
 
-	EventHijackResource = "hijack-resource"
-	EventHijackLink     = "hijack-link"
-	Event404Link        = "404-link"
-	EventTakeoverDNS    = "takeover-dns"
+	IssueEventHijackResource = "hijack-resource"
+	IssueEventHijackLink     = "hijack-link"
+	IssueEvent404Link        = "404-link"
+	IssueEventTakeoverDNS    = "takeover-dns"
 )
 
 const (
