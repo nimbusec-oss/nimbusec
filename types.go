@@ -419,6 +419,11 @@ type ParkedDomainDetails struct {
 	FoundByPython bool   `json:"foundByPython"`
 }
 
+type SRIDetails struct {
+	Resource      string `json:"resource"`
+	IntegrityHash string `json:"integrityHash"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -571,6 +576,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventParkedDomain:
 		specificDetails := ParkedDomainDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventSRIInvalid, IssueEventSRIMissing:
+		specificDetails := SRIDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err

@@ -34,6 +34,8 @@ const (
 	IssueEventHijackLink     = "hijack-link"
 	IssueEvent404Link        = "404-link"
 	IssueEventTakeoverDNS    = "takeover-dns"
+	IssueEventSRIMissing     = "sri-missing"
+	IssueEventSRIInvalid     = "sri-invalid"
 )
 
 const (
