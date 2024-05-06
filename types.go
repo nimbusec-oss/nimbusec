@@ -419,11 +419,7 @@ type ParkedDomainDetails struct {
 	FoundByPython bool   `json:"foundByPython"`
 }
 
-type SRIMissingDetails struct {
-	Resource string `json:"resource"`
-}
-
-type SRIInvalidDetails struct {
+type SRIDetails struct {
 	Resource      string `json:"resource"`
 	IntegrityHash string `json:"integrityHash"`
 }
@@ -585,15 +581,8 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventSRIInvalid:
-		specificDetails := SRIInvalidDetails{}
-		err = json.Unmarshal(details, &specificDetails)
-		if err != nil {
-			return nil, err
-		}
-		return specificDetails, nil
-	case IssueEventSRIMissing:
-		specificDetails := SRIMissingDetails{}
+	case IssueEventSRIInvalid, IssueEventSRIMissing:
+		specificDetails := SRIDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
