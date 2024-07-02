@@ -469,7 +469,7 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventSuspiciousRequest:
+	case IssueEventSuspiciousRequest, IssueEventSuspiciousLinkV2:
 		specificDetails := SuspiciousRequestDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
@@ -553,7 +553,7 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventSuspiciousRedirect, IssueEventSuspiciousLinkV2:
+	case IssueEventSuspiciousRedirect:
 		specificDetails := SuspiciousRedirectDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
