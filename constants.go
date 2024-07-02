@@ -10,6 +10,7 @@ const (
 	IssueEventCMSTampered   = "cms-tampered"
 
 	IssueEventSuspiciousLink     = "suspicious-link"
+	IssueEventSuspiciousLinkV2   = "suspicious-link-v2"
 	IssueEventSuspiciousRequest  = "suspicious-request"
 	IssueEventSuspiciousRedirect = "suspicious-redirect"
 	IssueEventParkedDomain       = "parked"
