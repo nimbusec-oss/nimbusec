@@ -476,7 +476,7 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventMalware:
+	case IssueEventMalware, IssueEventOpenDir, IssueEventPHPError:
 		specificDetails := MalwareDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {

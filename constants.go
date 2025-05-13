@@ -37,6 +37,9 @@ const (
 	IssueEventTakeoverDNS    = "takeover-dns"
 	IssueEventSRIMissing     = "sri-missing"
 	IssueEventSRIInvalid     = "sri-invalid"
+
+	IssueEventOpenDir  = "config-opendir"
+	IssueEventPHPError = "config-phperror"
 )
 
 const (
