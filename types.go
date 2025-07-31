@@ -71,9 +71,12 @@ type Bundle struct {
 
 	Features struct {
 		Defacement struct {
-			Available bool `json:"available"`
-			Nimbusec  bool `json:"nimbusec"`
-			ZoneH     bool `json:"zoneh"`
+			Available     bool `json:"available"`
+			Nimbusec      bool `json:"nimbusec"`
+			ZoneH         bool `json:"zoneh"`
+			Hijack        bool `json:"hijack"`
+			SRI           bool `json:"sri"`
+			ContentFreeze bool `json:"contentFreeze"`
 		} `json:"defacement"`
 		UnwantedContent struct {
 			Available bool `json:"available"`
@@ -93,10 +96,12 @@ type Bundle struct {
 			Available bool `json:"available"`
 		} `json:"tls"`
 		Webshell struct {
-			Available bool `json:"available"`
+			Available             bool `json:"available"`
+			UnclassifiedWebshells bool `json:"unclassifiedWebshells"`
 		} `json:"webshell"`
 		Application struct {
-			Available bool `json:"available"`
+			Available         bool `json:"available"`
+			PluginEnumeration bool `json:"pluginEnumeration"`
 		} `json:"application"`
 		Scanning struct {
 			Available        bool `json:"available"`
@@ -108,6 +113,9 @@ type Bundle struct {
 			FromASIA         bool `json:"fromAsia"`
 			Mobile           bool `json:"mobile"`
 		} `json:"scanning"`
+		Config struct {
+			Available bool `json:"available"`
+		} `json:"config"`
 		Notification struct {
 			Available   bool `json:"available"`
 			EMail       bool `json:"email"`
