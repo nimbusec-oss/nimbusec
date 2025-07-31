@@ -108,6 +108,9 @@ type Bundle struct {
 			FromASIA         bool `json:"fromAsia"`
 			Mobile           bool `json:"mobile"`
 		} `json:"scanning"`
+		Config struct {
+			Available bool `json:"available"`
+		} `json:"config"`
 		Notification struct {
 			Available   bool `json:"available"`
 			EMail       bool `json:"email"`
