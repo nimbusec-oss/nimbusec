@@ -437,6 +437,11 @@ type ConfigPublicDetails struct {
 	Type string `json:"type"`
 }
 
+type NoHTTPSRedirectDetails struct {
+	URL        string `json:"url"`
+	StatusCode int    `json:"statusCode"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -609,8 +614,12 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		}
 		return specificDetails, nil
 	case IssueEventNoHTTPSRedirect:
-		// currently, no specific details are held by "no-https-redirect" issues
-		return nil, nil
+		specificDetails := NoHTTPSRedirectDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
 	default:
 		return nil, fmt.Errorf("event '%s' unknown | %s", event, string(details))
 	}
