@@ -38,9 +38,11 @@ const (
 	IssueEventSRIMissing     = "sri-missing"
 	IssueEventSRIInvalid     = "sri-invalid"
 
-	IssueEventOpenDir      = "config-opendir"
-	IssueEventPHPError     = "config-phperror"
-	IssueEventConfigPublic = "config-public"
+	IssueEventOpenDir                = "config-opendir"
+	IssueEventPHPError               = "config-phperror"
+	IssueEventConfigPublic           = "config-public"
+	IssueEventConfigSecheads         = "config-secheads"
+	IssueEventConfigHeaderDeprecated = "config-header-deprecated"
 )
 
 const (

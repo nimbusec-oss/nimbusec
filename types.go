@@ -442,6 +442,37 @@ type NoHTTPSRedirectDetails struct {
 	StatusCode int    `json:"statusCode"`
 }
 
+type ConfigHeaderDeprecatedDetails struct {
+	Header string `json:"header"`
+}
+
+type ConfigSecheadsDetails struct {
+	SecheadsRating *SecheadsRating `json:"secheadsRating"`
+}
+
+type SecheadsRating struct {
+	Tests      map[string]Test `json:"tests"`
+	TotalScore int             `json:"totalScore"`
+	Grade      string          `json:"grade"`
+}
+
+// Test is basic unit of the security header analysis
+// describing the outcome of one test specifically
+// assessed by a score
+type Test struct {
+	Score  Score `json:"score"`
+	Passed bool  `json:"passed"`
+}
+
+// Score contains specific information about a tests'
+// assessment including the numerical score
+// (modifier) and a detailed description
+type Score struct {
+	Key         string `json:"key"`
+	Description string `json:"description"`
+	Modifier    int    `json:"modifier"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -615,6 +646,20 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventNoHTTPSRedirect:
 		specificDetails := NoHTTPSRedirectDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventConfigSecheads:
+		specificDetails := ConfigSecheadsDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventConfigHeaderDeprecated:
+		specificDetails := ConfigHeaderDeprecatedDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
