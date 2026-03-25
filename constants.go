@@ -43,6 +43,7 @@ const (
 	IssueEventConfigPublic           = "config-public"
 	IssueEventConfigSecheads         = "config-secheads"
 	IssueEventConfigHeaderDeprecated = "config-header-deprecated"
+	IssueEventConfigSPFInvalid       = "config-spf-invalid"
 )
 
 const (

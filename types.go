@@ -473,6 +473,14 @@ type Score struct {
 	Modifier    int    `json:"modifier"`
 }
 
+type ConfigSPFInvalidDetails struct {
+	SPFRecord  string `json:"spfRecord"`
+	PermError  bool   `json:"permError"`
+	NoneRecord bool   `json:"none"`
+	Lookups    int    `json:"lookups"`
+	Message    string `json:"message"`
+}
+
 // UnmarshalJSON unmarshals Issues and attaches the correct Details type instead of the interface{}
 func (issue *Issue) UnmarshalJSON(b []byte) error {
 	type TempIssueType Issue
@@ -660,6 +668,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventConfigHeaderDeprecated:
 		specificDetails := ConfigHeaderDeprecatedDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventConfigSPFInvalid:
+		specificDetails := ConfigSPFInvalidDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
