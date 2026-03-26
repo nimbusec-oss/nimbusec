@@ -476,7 +476,7 @@ type Score struct {
 type ConfigSPFInvalidDetails struct {
 	SPFRecord  string `json:"spfRecord"`
 	PermError  bool   `json:"permError"`
-	NoneRecord bool   `json:"none"`
+	NoneRecord bool   `json:"noneRecord"`
 	Lookups    int    `json:"lookups"`
 	Message    string `json:"message"`
 }
