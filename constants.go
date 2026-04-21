@@ -9,7 +9,6 @@ const (
 	IssueEventCMSVulnerable = "cms-vulnerable"
 	IssueEventCMSTampered   = "cms-tampered"
 
-	IssueEventSuspiciousLink     = "suspicious-link"
 	IssueEventSuspiciousLinkV2   = "suspicious-link-v2"
 	IssueEventSuspiciousRequest  = "suspicious-request"
 	IssueEventSuspiciousRedirect = "suspicious-redirect"
@@ -31,12 +30,13 @@ const (
 	IssueEventSeospam          = "seospam"
 	IssueEventWebshell         = "webshell"
 
-	IssueEventHijackResource = "hijack-resource"
-	IssueEventHijackLink     = "hijack-link"
-	IssueEvent404Link        = "404-link"
-	IssueEventTakeoverDNS    = "takeover-dns"
-	IssueEventSRIMissing     = "sri-missing"
-	IssueEventSRIInvalid     = "sri-invalid"
+	IssueEventHijackResource     = "hijack-resource"
+	IssueEventHijackLink         = "hijack-link"
+	IssueEventUnresolvedResource = "unresolved-resource"
+	IssueEventUnresolvedLink     = "unresolved-link"
+	IssueEventTakeoverDNS        = "takeover-dns"
+	IssueEventSRIMissing         = "sri-missing"
+	IssueEventSRIInvalid         = "sri-invalid"
 
 	IssueEventOpenDir                = "config-opendir"
 	IssueEventPHPError               = "config-phperror"

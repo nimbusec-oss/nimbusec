@@ -344,14 +344,6 @@ type BlacklistDetails struct {
 	Profile      string   `json:"profile"`
 }
 
-type SuspiciousLinkDetails struct {
-	URL   string `json:"url"`
-	Links []struct {
-		Link       string             `json:"link"`
-		Blacklists []BlacklistDetails `json:"blacklists"`
-	} `json:"links"`
-}
-
 type SuspiciousRequestDetails struct {
 	Entity     string             `json:"entity"`
 	URLs       []string           `json:"urls"`
@@ -413,6 +405,12 @@ type SuspiciousRedirectDetails struct {
 
 type HijackDetails struct {
 	URL        string   `json:"url"`
+	Initiators []string `json:"initiators"`
+}
+
+type UnresolvedDetails struct {
+	Entity     string   `json:"entity"`
+	URLs       []string `json:"urls"`
 	Initiators []string `json:"initiators"`
 }
 
@@ -519,13 +517,6 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventSuspiciousLink:
-		specificDetails := SuspiciousLinkDetails{}
-		err = json.Unmarshal(details, &specificDetails)
-		if err != nil {
-			return nil, err
-		}
-		return specificDetails, nil
 	case IssueEventSuspiciousRequest, IssueEventSuspiciousLinkV2:
 		specificDetails := SuspiciousRequestDetails{}
 		err = json.Unmarshal(details, &specificDetails)
@@ -617,7 +608,7 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 			return nil, err
 		}
 		return specificDetails, nil
-	case IssueEventHijackResource, IssueEventHijackLink, IssueEvent404Link:
+	case IssueEventHijackResource, IssueEventHijackLink:
 		specificDetails := HijackDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
@@ -675,6 +666,13 @@ func UnmarshalDetails(event string, details []byte) (interface{}, error) {
 		return specificDetails, nil
 	case IssueEventConfigSPFInvalid:
 		specificDetails := ConfigSPFInvalidDetails{}
+		err = json.Unmarshal(details, &specificDetails)
+		if err != nil {
+			return nil, err
+		}
+		return specificDetails, nil
+	case IssueEventUnresolvedResource, IssueEventUnresolvedLink:
+		specificDetails := UnresolvedDetails{}
 		err = json.Unmarshal(details, &specificDetails)
 		if err != nil {
 			return nil, err
