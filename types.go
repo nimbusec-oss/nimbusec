@@ -373,6 +373,8 @@ type ContentViolationDetails struct {
 	NewInputResources  map[string]struct{} `json:"newInputResources"`
 	NewButtonResources map[string]struct{} `json:"newButtonResources"`
 	NewEventAttributes map[string]struct{} `json:"newEventAttributes"`
+	NewScriptResources map[string]struct{} `json:"newScriptResources"`
+	NewContentMD5      string              `json:"newContentMD5"`
 	Profile            string              `json:"profile"`
 }
 
