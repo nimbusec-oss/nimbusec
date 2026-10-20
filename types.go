@@ -39,6 +39,7 @@ type DomainMetadata struct {
 	Domain    DomainID          `json:"domain"`
 	Redirects []Redirect        `json:"redirects"`
 	Headers   map[string]string `json:"headers"`
+	TLS       PQCDetails        `json:"tls"`
 }
 
 type DomainStats struct {
@@ -704,4 +705,10 @@ type Agent struct {
 	Sha1    string `json:"sha1"`
 	Format  string `json:"format"`
 	URL     string `json:"url"`
+}
+
+type PQCDetails struct {
+	SupportsPQC   bool            `json:"supportsPQC"`
+	SupportsTLS13 bool            `json:"supportsTLS13"`
+	SupportedKEM  map[string]bool `json:"supportedKEM"`
 }
